@@ -1,0 +1,27 @@
+.maineCard {
+    transition: 0.3s;
+    width: 80%;
+    height: 80%;
+    background: dodgerblue;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.maineCard:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.imageContent {
+    width: 60%;
+    height: 60%;
+    margin: 5px;
+
+}
+
+.ContentCard {
+    height: 250px;
+    border-radius: 5px;
+    margin: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}

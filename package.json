@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.0",
+    "mobx": "^6.9.0",
+    "mobx-react-lite": "^3.4.3"
+  }
+}
