@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import cl from './ContentBoxStyle.css'
+import {CINEMA_ROUTE, FILM_PAGE} from "../../utils/consts";
 
 const ContentBox = ({info}) => {
 
@@ -8,7 +9,7 @@ const ContentBox = ({info}) => {
     useEffect(() => {
         let g = ``;
         for (let i of info.genres) {
-            g += genres
+            g += i.genre + ` `
 
         }
         setGenres(g)
@@ -16,16 +17,24 @@ const ContentBox = ({info}) => {
 
 
     return (
-        <div>
+        <div
+            onClick={(e) => {
+                localStorage.setItem(`whatId`, JSON.stringify(info.filmId))
+                document.location.href = FILM_PAGE}
+            }
+
+        >
             {
                 Object.keys(info).length === 0
                     ? <div className={`ContentCard`}>da</div>
                     :
                         <div className={`image maineCard`}>
-                            <img className={'imageContent'} src={info.medium_cover_image} alt=""/>
+                            <img className={'imageContent'} src={info.posterUrl} alt=""/>
                             <div className={`ContentCard`}>
-                                {info.title}
+                                {info.rating}
+                                <br/>
                                 {info.year}
+                                <br/>
                                 {genres}
                             </div>
 

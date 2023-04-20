@@ -1,9 +1,20 @@
 import Admin from "./pages/Admin";
-import {ADMIN_ROUTE, BASKET_ROUTE, CINEMA_ROUTE, CONTENT_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE} from "./utils/consts";
+import {
+    ADMIN_ROUTE,
+    BASKET_ROUTE,
+    CINEMA_ROUTE, CONTENT_LIST_ROUTE,
+    CONTENT_ROUTE, FILM_PAGE,
+    LOGIN_ROUTE,
+    REGISTRATION_ROUTE,
+    START_ROUTE
+} from "./utils/consts";
 import Basket from "./pages/Basket";
 import ContentPage from "./pages/ContentPage";
 import Auth from "./pages/Auth/Auth";
 import Cinema from "./pages/Cinema/ Cinema";
+import StartPage from "./pages/StartPage";
+import ContentList from "./components/ContentList";
+import FilmPage from "./pages/FilmPage";
 
 export const authRoutes = [
     {
@@ -33,4 +44,16 @@ export const publicRotes = [
         path: LOGIN_ROUTE,
         component: <Auth/>
     },
+    {
+        path: START_ROUTE,
+        component: <StartPage/>
+    },
+    {
+        path: CONTENT_LIST_ROUTE,
+        component: <ContentList/>
+    },
+    {
+        path: FILM_PAGE,
+        component: <FilmPage/>
+    }
 ]

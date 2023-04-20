@@ -19,11 +19,11 @@ function App() {
             .finally( () => {
                 isLoading(false)
             })
-    }, [])
+    }, []);
 
     if (loading) {
         return <Spinner animation={'grow'}/>
-    }
+    };
 
   return (
     <BrowserRouter className="App">
@@ -31,6 +31,6 @@ function App() {
       <AppRouter/>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

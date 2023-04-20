@@ -18,3 +18,8 @@ export const check = async (email, password) => {
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token)
 }
+
+export const getGenre = async () => {
+    const  {data} = await $host.get(`api/type`);
+    return await data
+}

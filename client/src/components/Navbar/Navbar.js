@@ -3,7 +3,7 @@ import {Context} from "../../index";
 import {Button, Container, Nav} from "react-bootstrap";
 import {Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {REGISTRATION_ROUTE, LOGIN_ROUTE, ADMIN_ROUTE} from "../../utils/consts";
+import {LOGIN_ROUTE, ADMIN_ROUTE} from "../../utils/consts";
 import cl from './NavbarSryle.css'
 import {observer} from "mobx-react-lite";
 
@@ -34,7 +34,7 @@ const NavBar = observer(() => {
                             <Button
                                 onClick={() => user.setIsAuth(true)}
                             >
-                                <Link class="link-light" to={REGISTRATION_ROUTE}>Зарегистририруйтесь</Link>
+                                <Link class="link-light" to={LOGIN_ROUTE}>Войдите в профиль</Link>
                             </Button>
                         </Nav>
                 }

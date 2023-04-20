@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {Button, Card, Container, Form, NavLink, Row} from "react-bootstrap";
 import cl from './Auth.css'
-import {CINEMA_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE} from "../../utils/consts";
+import {LOGIN_ROUTE, REGISTRATION_ROUTE, START_ROUTE} from "../../utils/consts";
 import {Link, useLocation} from "react-router-dom";
 import {login, registration} from "../../http/userAPI";
 import {Context} from "../../index";
@@ -19,12 +19,14 @@ const Auth = () => {
             let data;
             if (isLogin) {
                 data = await login(email, password);
+                user.setUser(user);
+                user.setIsAuth(true);
             } else {
                 data = await registration(email, password);
+                user.setUser(user);
+                user.setIsAuth(true);
             }
-            user.setUser(user);
-            user.setIsAuth(true);
-            document.location.href = CINEMA_ROUTE
+            document.location.href = START_ROUTE
         } catch (e) {
             alert(e.response.data.message)
         }
