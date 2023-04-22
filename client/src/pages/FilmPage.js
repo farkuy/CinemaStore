@@ -10,9 +10,10 @@ const FilmPage = () => {
 
     useMemo(() => {
         getMovies(maineId)
-            .then(a => setFilmInfo(a))
-    }, [])
+            .then(a => setFilmInfo(a));
 
+    }, [])
+    console.log(filmInfo)
     return (
         <div className="wrapper">
 
@@ -21,10 +22,9 @@ const FilmPage = () => {
             </div>
 
             <div className="wrapper-col-2">
-                <h1 className="title">Логан (2017)</h1>
-                <h6 className="subtitle">Logan 18+</h6>
-                <p className="description">Теряющий неуязвимость Росомаха спасает девочку-мутанта. Жесткое и печальное
-                    роуд-муви о старении супергероев</p>
+                <h1 className="title">{filmInfo.nameRu}</h1>
+                <h6 className="subtitle">{filmInfo.nameOriginal}</h6>
+                <p className="description">{filmInfo.shortDescription}.</p>
 
                 <div className="mb-40">
                     <a href="#" className="btn">Смотреть</a>
@@ -56,7 +56,7 @@ const FilmPage = () => {
             </div>
 
             <div className="wrapper-col-3">
-                <span className="rathing-main">7.6</span>
+                <span className="rathing-main">{filmInfo.ratingKinopoisk}</span>
                 <span className="rathing-counts">296 824 оценки</span>
                 <a href="#" className="rathing-details">459 рецензий</a>
             </div>

@@ -21,3 +21,14 @@ export async function getMovies(id) {
     const resp = await response.json();
     return resp
 }
+
+export async function getKinopoiskGenre() {
+    const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.2/films/filters`, {
+        headers: {
+            "Content-Type": `application/json`,
+            'X-API-KEY': `80eb4d7c-151a-4371-8c72-3a3796eedc44`
+        }
+    })
+    const resp = await response.json();
+    return resp.genres
+}

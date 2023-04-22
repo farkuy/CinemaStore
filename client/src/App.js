@@ -5,7 +5,7 @@ import NavBar from "./components/Navbar/Navbar";
 import {Context} from "./index";
 import {check} from "./http/userAPI";
 import {Spinner} from "react-bootstrap";
-
+import cl from './Styles/AppStyle.css'
 function App() {
 
     const {user} = useContext(Context);
