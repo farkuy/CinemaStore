@@ -5,6 +5,7 @@ import cl from '../Cinema/CinemaStyle.css'
 import {getMoviesTop} from "../../function";
 import Pagination from 'react-bootstrap/Pagination';
 import {getGenre} from "../../http/userAPI";
+import {useDispatch, useSelector} from "react-redux";
 
 const Cinema = () => {
     const [allContent, setAllContent] = useState([]);
@@ -12,11 +13,27 @@ const Cinema = () => {
     const [topFilms, setTopFilms] = useState(250);
     const [maxPages, setMaxPages] = useState(Math.ceil(topFilms/20));
     const [maineUrl, setMaineUrl] = useState(JSON.parse(localStorage.getItem(`whatUrl`)))
+    /*const dispatch = useDispatch()
+    const urlList = useSelector(state => state.url)
+    console.log(urlList)*/
 
     useMemo(() => {
         getMoviesTop(`${maineUrl + page}`)
-            .then(data => setAllContent(data.films))
+            .then(data => {
+                if (data.films){
+                    setAllContent(data.films)
+                }
+                if (data.items) {
+                    console.log(data.items)
+                    const filmsArray = data.items.filter((content, index) => {
+                        if (content.type === `FILM`) {
+                            return content
+                        }
+                    })
+                    setAllContent(filmsArray)
+                }
 
+            })
     }, [page, topFilms])
     console.log(allContent)
 

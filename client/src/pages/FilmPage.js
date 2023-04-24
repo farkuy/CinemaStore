@@ -13,7 +13,6 @@ const FilmPage = () => {
             .then(a => setFilmInfo(a));
 
     }, [])
-    console.log(filmInfo)
     return (
         <div className="wrapper">
 
