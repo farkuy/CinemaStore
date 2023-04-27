@@ -12,13 +12,13 @@ const Cinema = () => {
     const [page, setPage] = useState(1);
     const [topFilms, setTopFilms] = useState(250);
     const [maxPages, setMaxPages] = useState(Math.ceil(topFilms/20));
-    const [maineUrl, setMaineUrl] = useState(JSON.parse(localStorage.getItem(`whatUrl`)))
-    /*const dispatch = useDispatch()
-    const urlList = useSelector(state => state.url)
-    console.log(urlList)*/
+
+    const dispatch = useDispatch()
+    const urlList = useSelector(state => state.url.urlList)
+    console.log(urlList)
 
     useMemo(() => {
-        getMoviesTop(`${maineUrl + page}`)
+        getMoviesTop(`${urlList + page}`)
             .then(data => {
                 if (data.films){
                     setAllContent(data.films)
@@ -32,7 +32,6 @@ const Cinema = () => {
                     })
                     setAllContent(filmsArray)
                 }
-
             })
     }, [page, topFilms])
     console.log(allContent)

@@ -1,6 +1,6 @@
 const defaultState = {
-    urlList: '',
-    urlOne: '',
+    urlList: JSON.parse(localStorage.getItem(`urlList`)),
+    urlOne: localStorage.getItem(`urlOne`),
 }
 export const reducerUrl = (state = defaultState, action) => {
     switch (action.type) {

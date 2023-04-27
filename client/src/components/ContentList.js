@@ -46,7 +46,6 @@ const ContentList = () => {
 
     return (
         <div>
-            {urlList}
             <h1>Списки и подборки фильмов</h1>
             <nav>
 
@@ -68,12 +67,11 @@ const ContentList = () => {
                     return <div
                         onClick={async (e) => {
                             if (nameList === `Топ фильмов`) {
-                                dispatch({type: 'NEW_URL_LIST', payload: i.url})
-                                localStorage.setItem(`whatUrl`, JSON.stringify(i.url))
+                                localStorage.setItem(`urlList`, JSON.stringify(i.url))
                                 document.location.href = CINEMA_ROUTE
                             }
                             if (nameList === `Жанры`) {
-                                localStorage.setItem(`whatUrl`, JSON.stringify(i.kpUrl))
+                                localStorage.setItem(`urlList`, JSON.stringify(i.kpUrl))
                                 document.location.href = CINEMA_ROUTE
                             }
 

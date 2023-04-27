@@ -34,6 +34,28 @@ export async function getKinopoiskGenre() {
     return resp.genres
 }
 
+export async function getSequels(id) {
+    const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.1/films/${id}/sequels_and_prequels`, {
+        headers: {
+            "Content-Type": `application/json`,
+            'X-API-KEY': `80eb4d7c-151a-4371-8c72-3a3796eedc44`
+        }
+    })
+    const resp = await response.json();
+    return resp
+}
+
+export async function getSearch(text) {
+    const response = await fetch(`https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=${text}=1`, {
+        headers: {
+            "Content-Type": `application/json`,
+            'X-API-KEY': `80eb4d7c-151a-4371-8c72-3a3796eedc44`
+        }
+    })
+    const resp = await response.json();
+    return resp
+}
+
 export function convertToObjectFromAPISource(apiObject) {
     const filmInfo = {};
     if (apiObject.hasOwnProperty('kinopoiskId')) {

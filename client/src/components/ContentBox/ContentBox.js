@@ -7,7 +7,6 @@ const ContentBox = ({info}) => {
 
     const [genres, setGenres] = useState('');
     const infoStandard = convertToObjectFromAPISource(info);
-    console.log(infoStandard)
 
     useEffect(() => {
         let g = ``;
@@ -49,7 +48,7 @@ const ContentBox = ({info}) => {
                                 {infoStandard.year}
                                 <div className={`movie__category`}>{genres}</div>
                                 <div className={`movie__average movie__average--${
-                                    infoStandard.ratingKinopoisk <= 2 
+                                    infoStandard.ratingKinopoisk.length > 3
                                         ? getClassByRate(infoStandard.ratingKinopoisk)
                                         : getClassByRate(infoStandard.ratingKinopoisk / 10)
                                 }`}>{infoStandard.ratingKinopoisk}</div>

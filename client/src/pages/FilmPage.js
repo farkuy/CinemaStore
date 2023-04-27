@@ -1,6 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import {getMovies} from "../function";
 import cl from './FilmPagesStyle.css'
+import SequelsList from "../components/SequelsList";
 
 const FilmPage = () => {
 
@@ -41,7 +42,7 @@ const FilmPage = () => {
                 <h2>О фильме</h2>
 
                 <ul className="params">
-                    <li><span className="text-muted">Год производства</span> 2017</li>
+                    <li><span className="text-muted">Год производства</span> {filmInfo.year}</li>
                     <li><span className="text-muted">Страна</span> США</li>
                     <li><span className="text-muted">Жанр</span> <span><a href="#">фантастика</a>, <a
                         href="#">боевик</a>, <a href="#">триллер</a>, <a href="#">драма</a></span></li>
@@ -59,6 +60,12 @@ const FilmPage = () => {
                 <span className="rathing-counts">296 824 оценки</span>
                 <a href="#" className="rathing-details">459 рецензий</a>
             </div>
+
+            <div className="wrapper-col-3">
+
+            </div>
+
+            <SequelsList id={maineId}/>
 
         </div>
     );
