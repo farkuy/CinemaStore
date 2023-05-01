@@ -4,7 +4,7 @@ import {
     BASKET_ROUTE,
     CINEMA_ROUTE, CONTENT_LIST_ROUTE,
     CONTENT_ROUTE, FILM_PAGE,
-    LOGIN_ROUTE,
+    LOGIN_ROUTE, PROFILE_ROUTE,
     REGISTRATION_ROUTE,
     START_ROUTE
 } from "./utils/consts";
@@ -15,6 +15,7 @@ import Cinema from "./pages/Cinema/ Cinema";
 import StartPage from "./pages/StartPage";
 import ContentList from "./components/ContentList";
 import FilmPage from "./pages/FilmPage";
+import Profile from "./pages/Profile/Profile";
 
 export const authRoutes = [
     {
@@ -22,9 +23,13 @@ export const authRoutes = [
         component: <Admin/>
     },
     {
+        path: PROFILE_ROUTE,
+        component: <Profile/>
+    },
+    {
         path: BASKET_ROUTE,
         component: <Basket/>
-    }
+    },
 ]
 
 export const publicRotes = [

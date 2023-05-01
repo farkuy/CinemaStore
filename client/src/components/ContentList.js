@@ -5,13 +5,16 @@ import {filmsData} from "../data";
 import {CINEMA_ROUTE} from "../utils/consts";
 import {getKinopoiskGenre} from "../function";
 import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 const ContentList = () => {
-    const dispatch = useDispatch()
-    const urlList = useSelector(state => state.url.urlList)
 
     const [list, setList] = useState([]);
     const [nameList, setNameList] = useState(`Топ фильмов`);
     const [kpGenre, letKpGenre] = useState([])
+
+    const history = useNavigate();
+    const dispatch = useDispatch()
+    const showModal = useSelector(state => state.url.urlList)
 
     useEffect(() => {
         getKinopoiskGenre().then(a => {
@@ -43,7 +46,6 @@ const ContentList = () => {
         }
     }, [nameList, list]);
 
-
     return (
         <div>
             <h1>Списки и подборки фильмов</h1>
@@ -62,21 +64,24 @@ const ContentList = () => {
                 <a>По наградам</a>
                 <div id="indicator"></div>
             </nav>
+
             {
                 list.map((i, index) => {
-                    return <div
-                        onClick={async (e) => {
-                            if (nameList === `Топ фильмов`) {
-                                localStorage.setItem(`urlList`, JSON.stringify(i.url))
-                                document.location.href = CINEMA_ROUTE
-                            }
-                            if (nameList === `Жанры`) {
-                                localStorage.setItem(`urlList`, JSON.stringify(i.kpUrl))
-                                document.location.href = CINEMA_ROUTE
-                            }
+                    return <a href="#">
+                        <div
+                            onClick={async (e) => {
+                                if (nameList === `Топ фильмов`) {
+                                    dispatch({type: `NEW_URL_LIST`, payload: JSON.stringify(i.url)})
+                                    history(CINEMA_ROUTE)
+                                }
+                                if (nameList === `Жанры`) {
+                                    dispatch({type: `NEW_URL_LIST`, payload: JSON.stringify(i.kpUrl)})
+                                    history(CINEMA_ROUTE)
+                                }
 
-                        }}
-                    >{i.name}</div>
+                            }}
+                        >{i.name}</div>
+                    </a>
                 })
             }
 

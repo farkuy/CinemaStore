@@ -2,18 +2,22 @@ import React, {useMemo, useState} from 'react';
 import {getMovies} from "../function";
 import cl from './FilmPagesStyle.css'
 import SequelsList from "../components/SequelsList";
+import {useDispatch, useSelector} from "react-redux";
 
 const FilmPage = () => {
 
     const [filmInfo, setFilmInfo] = useState({});
-    const [maineId, setMaineId] = useState(JSON.parse(localStorage.getItem(`whatId`)))
-
+    /*const [maineId, setMaineId] = useState(JSON.parse(localStorage.getItem(`whatId`)))*/
+    const dispatch = useDispatch();
+    const maineUrl = useSelector(state => state.url.urlList)
+    const maineId = useSelector(state => state.urlOne.urlOne);
 
     useMemo(() => {
         getMovies(maineId)
             .then(a => setFilmInfo(a));
 
     }, [])
+
     return (
         <div className="wrapper">
 
@@ -65,7 +69,9 @@ const FilmPage = () => {
 
             </div>
 
+{/*
             <SequelsList id={maineId}/>
+*/}
 
         </div>
     );

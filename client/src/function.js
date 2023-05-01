@@ -2,6 +2,7 @@ import axios from "axios";
 import {standardContentInfo} from "./data";
 
 export async function getMoviesTop(url) {
+
     const response = await fetch(url, {
         headers: {
             "Content-Type": `application/json`,

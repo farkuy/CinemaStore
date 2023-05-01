@@ -8,6 +8,8 @@ import {store} from './store/redux/index'
 export const Context = createContext(null);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 root.render(
     <Provider store={store}>
         <Context.Provider

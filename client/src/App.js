@@ -25,7 +25,7 @@ function App() {
         return <Spinner animation={'grow'}/>
     };
 
-  return (
+    return (
     <BrowserRouter className="App">
         <NavBar/>
       <AppRouter/>

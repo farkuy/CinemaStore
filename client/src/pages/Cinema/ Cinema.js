@@ -1,64 +1,82 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Container, Row} from "react-bootstrap";
 import ContentBox from "../../components/ContentBox/ContentBox";
 import cl from '../Cinema/CinemaStyle.css'
+import cla from '../../components/ArrowToTop/ArrowStyle.css'
 import {getMoviesTop} from "../../function";
-import Pagination from 'react-bootstrap/Pagination';
 import {getGenre} from "../../http/userAPI";
 import {useDispatch, useSelector} from "react-redux";
+import ArrowToTop from "../../components/ArrowToTop/ArrowToTop";
 
 const Cinema = () => {
     const [allContent, setAllContent] = useState([]);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [topFilms, setTopFilms] = useState(250);
     const [maxPages, setMaxPages] = useState(Math.ceil(topFilms/20));
+    const lastElement = useRef();
+    const observer = useRef();
+    const [isFilmsLoading, setIsFilmsLoading] = useState(false)
 
     const dispatch = useDispatch()
     const urlList = useSelector(state => state.url.urlList)
-    console.log(urlList)
+    const urlOne = useSelector(state => state.url.urlOne)
 
-    useMemo(() => {
-        getMoviesTop(`${urlList + page}`)
-            .then(data => {
-                if (data.films){
-                    setAllContent(data.films)
-                }
-                if (data.items) {
-                    console.log(data.items)
-                    const filmsArray = data.items.filter((content, index) => {
-                        if (content.type === `FILM`) {
-                            return content
-                        }
-                    })
-                    setAllContent(filmsArray)
-                }
-            })
-    }, [page, topFilms])
-    console.log(allContent)
+    useEffect(() => {
+        if (isFilmsLoading) return;
+        if (observer.current) observer.current.disconnect();
+        const callback = (entr, observer) => {
+            if (entr[0].isIntersecting) {
+                console.log(page)
+                setPage( page + 1)
+            }
 
-    let items = [];
-    for (let number = 1; number <= maxPages; number++) {
-        items.push(
-            <Pagination.Item
-                onClick={() => {
-                    setPage(number);
-                    window.scrollTo(0, 0);
-                }}
-                key={number}
-            >
-                {number}
-            </Pagination.Item>,
-        );
-    }
+        }
+        observer.current = new IntersectionObserver(callback);
+        observer.current.observe(lastElement.current)
+    }, [isFilmsLoading])
+
+    useMemo(async () => {
+        setIsFilmsLoading(true)
+        try {
+            if (typeof urlList === `object`) {
+                setAllContent(urlList.films)
+            }
+            console.log(`${urlList + page}`)
+            await getMoviesTop(`${urlList + page}`)
+                .then(data => {
+                    if (data.films){
+                        setAllContent([ ...allContent, ...data.films])
+                    }
+                    if (data.items) {
+                        const filmsArray = data.items.filter((content, index) => {
+                            if (content.type === `FILM`) {
+                                return content
+                            }
+                        })
+                        setAllContent([ ...allContent, ...filmsArray])
+                    }
+                })
+                .then(v => {
+                    console.log(allContent)
+                })
+        } catch (e) {
+            console.log(e)
+        } finally {
+            await setIsFilmsLoading(false)
+        }
+    }, [page, topFilms, urlList])
 
     return (
         <div className='cinema'>
+            <ArrowToTop/>
             {
                 allContent.map((content, index) => {
                     return <ContentBox info={content} key={index}/>
                 })
             }
-            <Pagination>{items}</Pagination>
+            <div ref={lastElement} style={{height: 20, background: `red`}}>
+
+            </div>
         </div>
     );
 };

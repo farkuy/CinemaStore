@@ -2,11 +2,18 @@ import React, {useEffect, useState} from 'react';
 import cl from './ContentBoxStyle.css'
 import {CINEMA_ROUTE, FILM_PAGE} from "../../utils/consts";
 import {convertToObjectFromAPISource} from "../../function";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 const ContentBox = ({info}) => {
 
     const [genres, setGenres] = useState('');
     const infoStandard = convertToObjectFromAPISource(info);
+
+    const history = useNavigate();
+    const dispatch = useDispatch();
+    const urlList = useSelector(state => state.url.urlList)
+    const urlOne = useSelector(state => state.urlOne.urlOne)
 
     useEffect(() => {
         let g = ``;
@@ -30,8 +37,9 @@ const ContentBox = ({info}) => {
     return (
         <div
             onClick={(e) => {
-                localStorage.setItem(`whatId`, JSON.stringify(infoStandard.kinopoiskId))
-                document.location.href = FILM_PAGE
+                dispatch({type: `NEW_URL`, payload: JSON.stringify(infoStandard.kinopoiskId)})
+                dispatch({type: `NEW_URL_LIST`, payload: JSON.stringify(urlList)})
+                history(FILM_PAGE)
             }
         }
         >
@@ -48,9 +56,7 @@ const ContentBox = ({info}) => {
                                 {infoStandard.year}
                                 <div className={`movie__category`}>{genres}</div>
                                 <div className={`movie__average movie__average--${
-                                    infoStandard.ratingKinopoisk.length > 3
-                                        ? getClassByRate(infoStandard.ratingKinopoisk)
-                                        : getClassByRate(infoStandard.ratingKinopoisk / 10)
+                                    getClassByRate(infoStandard.ratingKinopoisk)
                                 }`}>{infoStandard.ratingKinopoisk}</div>
                             </div>
 
